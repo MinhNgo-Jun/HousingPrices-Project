@@ -50,5 +50,16 @@ for col in df.columns:
     else:
         print(f"Column '{col}' has no missing values.")
 
-# Convert categorical variables to numerical using one-hot encoding
+# Visualise the distribution of SalePrice
+sns.histplot(df['SalePrice'], kde=True)
+plt.title('Distribution of SalePrice')
+plt.show()
+
+# Visualise the relationship between SalePrice and LotArea
+sns.scatterplot(x='LotArea', y='SalePrice', data=df)
+plt.title('SalePrice vs LotArea')
+plt.show()
+
+sns.boxplot(x='MSZoning',y='SalePrice', data=df)
+plt.show()
 
