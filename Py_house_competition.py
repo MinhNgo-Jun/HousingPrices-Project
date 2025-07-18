@@ -55,11 +55,28 @@ sns.histplot(df['SalePrice'], kde=True)
 plt.title('Distribution of SalePrice')
 plt.show()
 
+# Visualise the relationship between SalePrice and LotFrontage
+sns.scatterplot(x='LotFrontage', y='SalePrice', data=df)
+plt.title('SalePrice vs LotFrontage')
+plt.show()
+
 # Visualise the relationship between SalePrice and LotArea
 sns.scatterplot(x='LotArea', y='SalePrice', data=df)
 plt.title('SalePrice vs LotArea')
 plt.show()
 
-sns.boxplot(x='MSZoning',y='SalePrice', data=df)
+# Visualise the relationship between SalePrice and living area
+sns.scatterplot(x='GrLivArea', y='SalePrice', data=df)
+plt.title('SalePrice vs GrLivArea')
+plt.show()
+
+# Visualise the relationship between SalePrice and MasVnrArea
+sns.scatterplot(x='MasVnrArea', y='SalePrice', data=df)
+plt.title('SalePrice vs MasVnrArea')
+plt.show()
+
+# Visualise the relationship between SalePrice and GarageArea
+sns.scatterplot(x='GarageArea', y='SalePrice', data=df)
+plt.title('SalePrice vs GarageArea')
 plt.show()
 
