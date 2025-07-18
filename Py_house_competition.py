@@ -5,6 +5,7 @@ import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
@@ -122,7 +123,18 @@ print(coefficients[coefficients.index.str.startswith('RoofMatl_')])
 y_pred_linear = linear_model.predict(X_test_scaled)
 rmse_linear = np.sqrt(mean_squared_error(y_test, y_pred_linear))
 print(f"RMSE for Linear Regression: {rmse_linear}")
+### The RSME for Linear Regression is 27024.85114321822, which indicates a bad fit.
 
 # Random Forest Regressor Model
 rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
 rf_model.fit(X_train_scaled, y_train)
+# Evaluate the Random Forest model
+y_pred_rf = rf_model.predict(X_test_scaled)
+rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
+print(f"RMSE for Random Forest Regressor: {rmse_rf}")
+### The RSME for Random Forest Regressor is 20626.558536399418, which indicates a better fit than Linear Regression.
+
+# Neural Network Model 
+## Neural networks includes 3 hidden layers with 100, 50, and 25 neurons respectively.
+nn_model = MLPRegressor(hidden_layer_sizes=(128, 128, 64), max_iter=500, random_state=42)
+nn_model.fit(X_train_scaled, y_train)
