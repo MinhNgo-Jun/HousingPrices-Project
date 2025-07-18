@@ -80,9 +80,27 @@ sns.scatterplot(x='GarageArea', y='SalePrice', data=df)
 plt.title('SalePrice vs GarageArea')
 plt.show()
 
-# One-hot encode categorical variables
-df = pd.get_dummies(df, drop_first=True)
+# Outlier detection using IQR method and replace them by the boundaries
+for col in df.select_dtypes(include=['int64', 'float64']).columns:
+    Q1 = df[col].quantile(0.25)
+    Q2 = df[col].quantile(0.5)
+    Q3 = df[col].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    df[col] = np.where(df[col] < lower_bound, lower_bound, df[col])
+    df[col] = np.where(df[col] > upper_bound, upper_bound, df[col])
 
-# Calculate the correlation matrix
-correlation_matrix = df.corr()
+# Convert categorical variables to numerical using one-hot encoding
+df_encoded = pd.get_dummies(df, drop_first=True)
 
+df_encoded.head()
+
+# Linear Regression Model
+X = df_encoded.drop('SalePrice', axis=1)
+y = df_encoded['SalePrice']
+# Scale the numerical features
+
+
+scaler = MinMaxScaler()
+X_scaled = scaler.fit_transform(X)  
