@@ -1,5 +1,3 @@
-cd "F:/Kaggle project/Python/House competition"
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,8 +10,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import r2_score
 
 # Load the dataset
-df= pd.read_csv('train.csv')
-df_test = pd.read_csv("test.csv")
+df= pd.read_csv('Data/train.csv')
+df_test = pd.read_csv("Data/test.csv")
 
 # Display the first few rows and info of the dataset
 df.head
