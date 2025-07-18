@@ -98,7 +98,7 @@ df_encoded = pd.get_dummies(df, drop_first=True)
 df_encoded.head()
 
 # Split the dataset into training and testing sets
-X = df_encoded.drop('SalePrice', axis=1)
+X = df_encoded.drop(['Id', 'SalePrice'], axis=1)
 y = df_encoded['SalePrice']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -109,6 +109,14 @@ scaler = MinMaxScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 linear_model.fit(X_train_scaled, y_train)
+# Display the coefficients of the linear regression model
+coefficients = pd.DataFrame(linear_model.coef_, X_train.columns, columns=['Coefficient'])
+print(coefficients)
+# Show top 10 high coefficients 
+print(coefficients.nlargest(10, 'Coefficient'))
+# Show coefficients starting with 'RoofMatl_'
+print(coefficients[coefficients.index.str.startswith('RoofMatl_')])
+### We can see that the RoofMatl has a significant impact on the SalePrice.
 
 # Evaluate the Linear Regression model
 y_pred_linear = linear_model.predict(X_test_scaled)
