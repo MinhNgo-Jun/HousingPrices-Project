@@ -20,13 +20,35 @@ df.info()
 # Check for missing values
 print(df.isnull().sum())
 
-# Replace missing values in numerical columns with the median and in categorical columns with 'None'
+# Display the number of missing values in each column
 for col in df.columns:
-    if df[col].dtype == 'object':
-        df[col] = df[col].fillna('None')
-    elif df[col].dtype in ['int64', 'float64']:
-        df[col] = df[col].fillna(df[col].median())
+    if df.isnull().sum()[col] > 0:
+        print(f"Column '{col}' has {df.isnull().sum()[col]} missing values.")
 
-print(df.isnull().sum())
+# Replace missing values categorical columns with 'None'
+for col in df.select_dtypes(include=['object']).columns:
+    df[col] = df[col].fillna('None')
 
+# For numerical columns:
+for col in df.columns:
+    if df.isnull().sum()[col] > 0 and df[col].dtype in ['int64', 'float64']:
+        print(f"Column '{col}' has {df.isnull().sum()[col]} missing values.")
+
+# Replace missing values in 'LotFrontage' with the median
+df['LotFrontage'] = df['LotFrontage'].fillna(df['LotFrontage'].median())
+
+# Replace missing values in 'MasVnrArea' with the zero value (0)
+df['MasVnrArea'] = df['MasVnrArea'].fillna(0)
+
+# Replace missing values in 'GarageYrBlt' with the zero value (0)
+df['GarageYrBlt'] = df['GarageYrBlt'].fillna(0)
+
+# Check for missing values again
+for col in df.columns:
+    if df.isnull().sum()[col] > 0:
+        print(f"Column '{col}' has {df.isnull().sum()[col]} missing values.")
+    else:
+        print(f"Column '{col}' has no missing values.")
+
+# Convert categorical variables to numerical using one-hot encoding
 
