@@ -28,3 +28,5 @@ for col in df.columns:
         df[col] = df[col].fillna(df[col].median())
 
 print(df.isnull().sum())
+
+
