@@ -80,3 +80,9 @@ sns.scatterplot(x='GarageArea', y='SalePrice', data=df)
 plt.title('SalePrice vs GarageArea')
 plt.show()
 
+# One-hot encode categorical variables
+df = pd.get_dummies(df, drop_first=True)
+
+# Calculate the correlation matrix
+correlation_matrix = df.corr()
+
